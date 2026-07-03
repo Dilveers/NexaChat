@@ -1,0 +1,27 @@
+config:
+  target: "wss://your-api-id.execute-api.ap-south-1.amazonaws.com/dev"
+  phases:
+    - duration: 60
+      arrivalRate: 5
+      rampTo: 25
+  engines:
+    ws: {}
+  variables:
+    roomId:
+      - general
+
+scenarios:
+  - engine: ws
+    flow:
+      - send:
+          action: "getHistory"
+          roomId: "{{ roomId }}"
+          limit: 10
+      - think: 1
+      - loop:
+          - send:
+              action: "sendMessage"
+              roomId: "{{ roomId }}"
+              text: "Load test message"
+          - think: 2
+        count: 10

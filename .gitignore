@@ -1,0 +1,8 @@
+node_modules/
+.npm-cache/
+.next/
+dist/
+.aws-sam/
+.env
+.env.local
+*.log
